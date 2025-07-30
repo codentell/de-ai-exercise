@@ -66,6 +66,10 @@ async def main():
         tasks = [download_and_extract(session, url) for url in DOWNLOAD_URLS]
         await asyncio.gather(*tasks)
 
+    print(f"Contents after: {os.listdir('.')}")
+    if os.path.exists(DOWNLOAD_DIR):
+        print(f"Downloads directory contents: {os.listdir(DOWNLOAD_DIR)}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

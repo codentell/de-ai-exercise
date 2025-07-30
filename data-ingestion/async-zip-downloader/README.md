@@ -24,7 +24,7 @@ with `Docker`
 ## Running with Docker
 ```python
 docker build -t async-zip-downloader .
-
+docker run async-zip-downloader
 docker run -it --entrypoint /bin/bash async-zip-downloader
 ```
 
