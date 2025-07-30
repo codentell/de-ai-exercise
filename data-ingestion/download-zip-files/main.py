@@ -14,11 +14,13 @@ DOWNLOAD_URLS = [
 
 DOWNLOAD_DIR = "downloads"
 
+
 def get_filename_from_url(url):
     """
     Get the filename from the url
     """
     return url.split("/")[-1] or "download.zip"
+
 
 async def download_and_extract(session, url):
     """
@@ -30,11 +32,10 @@ async def download_and_extract(session, url):
             if response.status != 200:
                 raise ClientError(f"HTTP Error {response.status}")
             data = await response.read()
-        
+
         filename = get_filename_from_url(url)
         zippath = os.path.join(DOWNLOAD_DIR, filename)
 
-        
         with open(zippath, "wb") as f:
             f.write(data)
 
@@ -45,16 +46,14 @@ async def download_and_extract(session, url):
         extract_path = os.path.join(DOWNLOAD_DIR, subfolder_name)
         os.makedirs(extract_path, exist_ok=True)
 
-        with zipfile.ZipFile(zippath, 'r') as z:
+        with zipfile.ZipFile(zippath, "r") as z:
             z.extractall(extract_path)
             print(f"Extracted: {filename}")
         print(zippath)
         os.remove(zippath)
 
-
-
     except Exception as e:
-        print(f"Error downloading {url} : {e}" )
+        print(f"Error downloading {url} : {e}")
 
 
 async def main():
